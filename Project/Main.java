@@ -22,8 +22,8 @@ class HealthTracker {
 
     public double weightToReduce() {
         double bmi = calculateBMI();
-        double HealthyWeight = 24.9 * (Math.pow(height,2));
-        return (bmi > 24.9) ? (weight - HealthyWeight) : 0;
+        double TargetWeight = 24.9 * (Math.pow(height,2));
+        return (bmi > 24.9) ? (weight - TargetWeight) : 0;
     }
 
     public void displayResult() {
