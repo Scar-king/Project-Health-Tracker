@@ -1,20 +1,22 @@
 package Project;
 
-class Process extends HealthTracker {
-    public Process(String name, int age, char gender, double weight, double height){
+public class Process extends HealthTracker {
+    public Process(String name, int age, char gender, double weight, double height) {
         super(name, age, gender, weight, height);
     }
 
+    @Override
     public double calculateBMI() {
-        return weight / (Math.pow(height,2));
+        return weight / (Math.pow(height, 2));
     }
 
     public double weightToReduce() {
         double bmi = calculateBMI();
-        double TargetWeight = 24.9 * (Math.pow(height,2));
-        return (bmi > 24.9) ? (weight - TargetWeight) : 0;
+        double targetWeight = 24.9 * (Math.pow(height, 2));
+        return (bmi > 24.9) ? (weight - targetWeight) : 0;
     }
 
+    @Override
     public void displayResult() {
         double bmi = calculateBMI();
         System.out.println("\nHealth Report for " + name + ":");

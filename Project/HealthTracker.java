@@ -1,6 +1,6 @@
 package Project;
 
-abstract class HealthTracker {
+public abstract class HealthTracker {
     protected String name;
     protected int age;
     protected char gender;
@@ -13,4 +13,7 @@ abstract class HealthTracker {
         this.weight = weight;
         this.height = height;
     }
+
+    public abstract double calculateBMI();
+    public abstract void displayResult();
 }
