@@ -3,10 +3,10 @@ package Project;
 import java.util.Scanner;
 
 class HealthTracker {
-    private String name;
-    private int age;
-    private char gender;
-    private double weight, height;
+    protected String name;
+    protected int age;
+    protected char gender;
+    protected double weight, height;
 
     public HealthTracker(String name, int age, char gender, double weight, double height) {
         this.name = name;
@@ -14,6 +14,12 @@ class HealthTracker {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+    }
+}
+
+class Process extends HealthTracker {
+    public Process(String name, int age, char gender, double weight, double height){
+        super(name, age, gender, weight, height);
     }
 
     public double calculateBMI() {
@@ -59,8 +65,8 @@ public class Main {
         System.out.print("Enter your current height (m): ");
         double height = scanner.nextDouble();
 
-        HealthTracker user = new HealthTracker(name, age, gender, weight, height);
-        user.displayResult();
+        Process process = new Process(name, age, gender, weight, height);
+        process.displayResult();
 
         scanner.close();
     }
