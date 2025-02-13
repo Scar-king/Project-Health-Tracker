@@ -1,11 +1,13 @@
 package Project;
 
-public class Process extends HealthTracker {
-    public Process(String name, int age, char gender, double weight, double height) {
-        super(name, age, gender, weight, height);
+public class BMI extends Client {
+    double weight, height;
+    public BMI(String name, int age, String gender, double weight, double height) {
+        super(name, age, gender);
+        this.weight = weight;
+        this.height = height;
     }
 
-    @Override
     public double calculateBMI() {
         return weight / (Math.pow(height, 2));
     }
@@ -19,9 +21,14 @@ public class Process extends HealthTracker {
     @Override
     public void displayResult() {
         double bmi = calculateBMI();
-        System.out.println("\nHealth Report for " + name + ":");
+        // System.out.println("\nHealth Report for " + name + ":");
+        if(gender.equalsIgnoreCase("M")){
+            System.out.println("\nHealth Report for Mr." + name + ":");
+        } else {
+            System.out.println("\nHealth Report for Ms." + name + ":");
+        }
         System.out.printf("BMI: %.2f\n", bmi);
-        System.out.printf("GENDER: %c\n", gender);
+        System.out.printf("GENDER: %s\n", gender.toUpperCase());
         System.out.printf("AGE: %d\n", age);
         if (bmi > 24.9) {
             System.out.printf("You should reduce %.2f kg to reach a healthy weight.\n", weightToReduce());
