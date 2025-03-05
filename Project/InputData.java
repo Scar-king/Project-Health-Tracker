@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
+<<<<<<< HEAD:Project/InputData.java
 public class InputData {
 
     public static void clear(){
@@ -16,8 +17,13 @@ public class InputData {
         }
     }
     void InputValue(){
+=======
+public class InputBMIData {
+    void InputValue() {
+>>>>>>> b95019a5ba2a6adbc48a8d22feed9bfa479b3ef6:Project/InputBMIData.java
         Scanner scanner = new Scanner(System.in);
         String filename = "BMI.txt";
+
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
     
@@ -27,6 +33,7 @@ public class InputData {
         scanner.nextLine();
         System.out.print("Enter your gender (M/F): ");
         String gender = scanner.nextLine();
+<<<<<<< HEAD:Project/InputData.java
         clear();
 
         Menu menu = new Menu();
@@ -40,35 +47,70 @@ public class InputData {
             switch(choice){
                 case 1: 
                     clear();
+=======
+        
+        System.out.print("Enter your heart rate (bpm): ");
+        int heartRate = scanner.nextInt();
+        
+        System.out.print("Enter calories burned today: ");
+        double caloriesBurned = scanner.nextDouble();
+        
+        System.out.print("Enter water intake (liters): ");
+        double waterIntake = scanner.nextDouble();
+        
+        System.out.print("Enter sleep hours: ");
+        double sleepHours = scanner.nextDouble();
+        
+        System.out.print("Enter blood pressure (mmHg): ");
+        scanner.nextLine();
+        String bloodPressure = scanner.nextLine();
+        
+        System.out.print("Enter blood sugar level (mg/dL): ");
+        double bloodSugar = scanner.nextDouble();
+    
+        Menu menu = new Menu();
+        menu.displayMenu();
+    
+        int choice;
+        do {
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+>>>>>>> b95019a5ba2a6adbc48a8d22feed9bfa479b3ef6:Project/InputBMIData.java
                     System.out.print("Enter your current weight (kg): ");
                     double weight = scanner.nextDouble();
-                
+                    
                     System.out.print("Enter your current height (m): ");
                     double height = scanner.nextDouble();
                     
+<<<<<<< HEAD:Project/InputData.java
                     
                     BMI bmi = new BMI(name, age, gender, weight, height);
+=======
+                    BMI bmi = new BMI(name, age, gender, weight, height, heartRate, caloriesBurned, waterIntake, sleepHours, bloodPressure, bloodSugar);
+>>>>>>> b95019a5ba2a6adbc48a8d22feed9bfa479b3ef6:Project/InputBMIData.java
                     bmi.displayResult();
                     try {
                         RandomAccessFile file = new RandomAccessFile(filename, "rw");
                         
                         if (file.length() == 0) {
                             file.writeBytes("---------------------------------------------------------------------------------------------------\n");
-                            file.writeBytes(String.format("| %-20s | %-5s | %-10s | %-10s | %-10s | %-10s | %-13s|\n","NAME", "AGE", "GENDER", "WEIGHT", "HEIGHT", "BMI", "DATE"));
+                            file.writeBytes(String.format("| %-20s | %-5s | %-10s | %-10s | %-10s | %-10s | %-13s|\n", "NAME", "AGE", "GENDER", "WEIGHT", "HEIGHT", "BMI", "DATE"));
                             file.writeBytes("---------------------------------------------------------------------------------------------------\n");
                         }
-
+    
                         file.seek(file.length());
-
+    
                         file.writeBytes(String.format("| %-20s | %-5d | %-10s | %-10.2f | %-10.2f | %-10.2f | %-13s|\n", name, age, gender.toUpperCase(), weight, height, bmi.calculateBMI(), java.time.LocalDate.now()));
                         file.writeBytes("---------------------------------------------------------------------------------------------------\n");
-
+    
                         file.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     System.out.println("\n");
                     break;
+<<<<<<< HEAD:Project/InputData.java
                     case 2:
                     clear();
                         System.out.print("Enter the number of steps you've walked today: ");
@@ -129,6 +171,25 @@ public class InputData {
                         menu.displayMenu();
             }
         } while(choice != 10);
+=======
+                case 2:
+                    System.out.print("Enter the number of steps you've walked today: ");
+                    int step = scanner.nextInt();
+                    System.out.print("Enter the number of your goal step: ");
+                    int stepGoal = scanner.nextInt();
+                    System.out.println("Enter your weight (kg): ");
+                    double weightInStep = scanner.nextDouble();
+                    stepTracker Step = new stepTracker(name, age, gender, step, stepGoal, weightInStep, heartRate, caloriesBurned, waterIntake, sleepHours, bloodPressure, bloodSugar);
+                    Step.displayResult();
+                    break;
+                case 3:
+                    System.out.println("Thank you for using the Health Tracker!");
+                    break;
+                default:
+                    System.out.println("Error");
+            }
+        } while (choice != 3);
+>>>>>>> b95019a5ba2a6adbc48a8d22feed9bfa479b3ef6:Project/InputBMIData.java
         scanner.close();
     }
 }
