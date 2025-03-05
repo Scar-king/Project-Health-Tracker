@@ -1,5 +1,3 @@
-package Project;
-
 public class stepTracker extends Client {
     int stepCount;
     int stepGoal;

@@ -1,5 +1,3 @@
-package Project;
-
 public class WaterTracker extends Client {
     double totalWaterIntake;
     double goalWaterIntake;

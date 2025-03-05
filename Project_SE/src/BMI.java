@@ -1,5 +1,3 @@
-package Project;
-
 public class BMI extends Client {
     double weight, height;
     public BMI(String name, int age, String gender, double weight, double height) {

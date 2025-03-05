@@ -1,4 +1,4 @@
-package Project;
+
 
 public abstract class Client {
     protected String name;
