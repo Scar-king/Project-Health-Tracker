@@ -22,9 +22,9 @@ public class stepTracker extends Client {
     @Override
     public void displayResult() {
         if(gender.equalsIgnoreCase("M")){
-            System.out.println("\nHealth Report for Mr." + name + ":");
+            System.out.println("\nHealth Report for Mr. " + Colors.GREEN + name + Colors.RESET + ":");
         } else {
-            System.out.println("\nHealth Report for Ms." + name + ":");
+            System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
         }
         System.out.printf("Total steps today: %d step\n", stepCount);
         System.out.printf("Your step goal: %d steps\n", stepGoal);

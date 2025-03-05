@@ -23,9 +23,9 @@ public class BMI extends Client {
         double bmi = calculateBMI();
         // System.out.println("\nHealth Report for " + name + ":");
         if(gender.equalsIgnoreCase("M")){
-            System.out.println("\nHealth Report for Mr." + name + ":");
+            System.out.println("\nHealth Report for Mr. " + Colors.GREEN + name + Colors.RESET + ":");
         } else {
-            System.out.println("\nHealth Report for Ms." + name + ":");
+            System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
         }
         System.out.printf("BMI: %.2f\n", bmi);
         System.out.printf("GENDER: %s\n", gender.toUpperCase());

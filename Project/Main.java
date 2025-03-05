@@ -3,7 +3,7 @@ package Project;
 public class Main {
     public static void main(String[] args) {
 
-        InputBMIData input = new InputBMIData();
+        InputData input = new InputData();
         Menu menu = new Menu();
 
         menu.welcome();
