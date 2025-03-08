@@ -1,8 +1,12 @@
-
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SleepTracker extends Client {
@@ -13,6 +17,7 @@ public class SleepTracker extends Client {
     int awakeMinutes;
     double totalSleepHours;
     double sleepEfficiency;
+    List<SleepSession> sleepHistory;
     public SleepTracker(String name, int age, String gender){
         super(name, age, gender);
         this.sleepStart = LocalTime.of(0,0);
@@ -22,27 +27,46 @@ public class SleepTracker extends Client {
         this.awakeMinutes = 0;
         this.totalSleepHours = 0.0;
         this.sleepEfficiency = 0.0;
+        this.sleepHistory = new ArrayList<>();
     }
 
     public void inputData(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Sleep Tracker!");
         System.out.println("Please enter your sleep details in 24-hour format " + Colors.BRIGHT_RED + "(HH:mm)." + Colors.RESET);
-        LocalTime sleepStart = getValidTime(scanner, "Enter sleep start time " + Colors.BRIGHT_RED + "(e.g., 22:30 for 10:30 PM): " + Colors.RESET);
-        LocalTime wakeUpTime = getValidTime(scanner, "Enter wake-up time " + Colors.BRIGHT_RED + "(e.g., 06:30 for 6:30 AM): " + Colors.RESET);
+
+        this.sleepStart = getValidTime(scanner, "Enter sleep start time " + Colors.BRIGHT_RED + "(e.g., 22:30 for 10:30 PM): " + Colors.RESET);
+        this.wakeUpTime = getValidTime(scanner, "Enter wake-up time " + Colors.BRIGHT_RED + "(e.g., 06:30 for 6:30 AM): " + Colors.RESET);
 
         Duration timeInBedDuration = Duration.between(sleepStart, wakeUpTime);
         if (timeInBedDuration.isNegative()) {
             timeInBedDuration = timeInBedDuration.plusHours(24);
         }
         this.timeInBed = timeInBedDuration.toMinutes() / 60.0;
+        long minutesBetween = timeInBedDuration.toMinutes();
 
-        System.out.print("How many minutes were you awake during the night?: ");
-        this.awakeMinutes = scanner.nextInt();
+        while (true) {
+            System.out.print("How many minutes were you awake during the night?: ");
+            if (scanner.hasNextInt()) {
+                this.awakeMinutes = scanner.nextInt();
+                if (this.awakeMinutes >= 0 && this.awakeMinutes <= minutesBetween) {
+                    break; 
+                } else {
+                    System.out.println(Colors.RED + "Invalid input! Minutes awake cannot be negative or exceed the total time between sleep start and wake-up time. Please enter a valid number of minutes." + Colors.RESET);
+                }
+            } else {
+                System.out.println(Colors.RED + "Invalid input! Please enter a valid number for minutes awake." + Colors.RESET);
+                scanner.next();
+            }
+        }
 
         this.totalSleepHours = this.timeInBed - (this.awakeMinutes / 60.0);
 
         this.sleepEfficiency = (this.totalSleepHours / this.timeInBed) * 100;
+
+        sleepHistory.add(new SleepSession(sleepStart, wakeUpTime, this.timeInBed, this.totalSleepHours, this.sleepEfficiency));
+
+        saveDataToDatabase();
     }
 
     private static LocalTime getValidTime(Scanner scanner, String message) {
@@ -61,6 +85,29 @@ public class SleepTracker extends Client {
         return time;
     }
 
+    private void saveDataToDatabase(){
+        String query = "INSERT INTO sleep_data (Name, Age, Gender, Sleep_Start, Wake_Up_Time, Time_In_Bed, Total_Sleep_Hours, Sleep_Efficiency, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+            PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, name);
+            stmt.setInt(2, age);
+            stmt.setString(3, gender);
+            stmt.setTime(4, java.sql.Time.valueOf(this.sleepStart));
+            stmt.setTime(5, java.sql.Time.valueOf(this.wakeUpTime));
+            stmt.setDouble(6, timeInBed);
+            stmt.setDouble(7, totalSleepHours);
+            stmt.setDouble(8, sleepEfficiency);
+            stmt.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+
+            stmt.executeUpdate();
+            System.out.println("Sleep Data saved successfully!");
+        } catch ( SQLException e) {
+            System.out.println("Error saving Sleep Data: " + e.getMessage());
+        }
+    }
+
     @Override
     public void displayResult() {
         if(gender.equalsIgnoreCase("M")){
@@ -68,6 +115,7 @@ public class SleepTracker extends Client {
         } else {
             System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
         }
+       
         System.out.println("\n====================================");
         System.out.println("  Sleep Tracker Results");
         System.out.println("====================================");
@@ -85,6 +133,37 @@ public class SleepTracker extends Client {
         } else {
             System.out.println(Colors.BRIGHT_RED + "Poor sleep. Try improving sleep habits!" + Colors.RESET);
         }
+
+        System.out.println("\nSleep History:");
+        if(sleepHistory.isEmpty()) {
+            System.out.println("No sleep data available.");
+        } else {
+            for(SleepSession session : sleepHistory) {
+                System.out.println(session);
+            }
+        }
         System.out.println("====================================");
+    }
+}
+
+class SleepSession {
+    LocalTime sleepStart;
+    LocalTime wakeUpTime;
+    double timeInBed;
+    double totalSleepHours;
+    double sleepEfficiency;
+
+    public SleepSession(LocalTime sleepStart, LocalTime wakeUpTime, double timeInBed, double totalSleepHours, double sleepEfficiency) {
+        this.sleepStart = sleepStart;
+        this.wakeUpTime = wakeUpTime;
+        this.timeInBed = timeInBed;
+        this.totalSleepHours = totalSleepHours;
+        this.sleepEfficiency = sleepEfficiency;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Start Time: %s, Wake-Up Time: %s, Time in Bed: %.2f hours, Sleep Duration: %.2f hours, Sleep Efficiency: %.2f%%",
+                             sleepStart, wakeUpTime, timeInBed, totalSleepHours, sleepEfficiency);
     }
 }

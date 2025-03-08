@@ -19,19 +19,18 @@ public class BMI extends Client {
     @Override
     public void displayResult() {
         double bmi = calculateBMI();
-        // System.out.println("\nHealth Report for " + name + ":");
         if(gender.equalsIgnoreCase("M")){
             System.out.println("\nHealth Report for Mr. " + Colors.GREEN + name + Colors.RESET + ":");
         } else {
             System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
         }
-        System.out.printf("BMI: %.2f\n", bmi);
+        System.out.printf("\nBMI: %.2f\n", bmi);
         System.out.printf("GENDER: %s\n", gender.toUpperCase());
-        System.out.printf("AGE: %d\n", age);
+        System.out.printf("AGE: %d\n\n", age);
         if (bmi > 24.9) {
-            System.out.printf("You should reduce %.2f kg to reach a healthy weight.\n", weightToReduce());
+            System.out.printf(Colors.YELLOW + "You should reduce %.2f kg to reach a healthy weight.\n", weightToReduce() + Colors.RESET);
         } else {
-            System.out.println("Your weight is within a healthy range!");
+            System.out.println(Colors.GREEN + "Your weight is within a healthy range!\n" + Colors.RESET);
         }
     }
 }

@@ -1,10 +1,14 @@
-
-
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Scanner;
+import java.sql.*;
 
 public class InputData {
+
+    public static Connection getConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/health_tracker";
+        String user = "root";
+        String password = System.getenv("PASSWORD");
+        return DriverManager.getConnection(url, user, password);
+    }
 
     public static void clear(){
         try{
@@ -15,120 +19,268 @@ public class InputData {
             System.out.println("Error");
         }
     }
+
     void InputValue(){
         Scanner scanner = new Scanner(System.in);
-        String filename = "BMI.txt";
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
+
+        String name;
+        while(true) {
+            System.out.print("Enter your Name: ");
+            name = scanner.nextLine().trim();
+
+            if(name.matches("^[A-Za-z\\s]+$")) {
+                break;
+            } else {
+                System.out.println(Colors.RED + "Invalid name! Please enter only letters and spaces." + Colors.RESET);
+            }
+        }
     
-        System.out.print("Enter your age: ");
-        int age = scanner.nextInt();
-    
-        scanner.nextLine();
-        System.out.print("Enter your gender (M/F): ");
-        String gender = scanner.nextLine();
+        int age = -1;
+        boolean validInput = false;
+        while(!validInput){
+            try {   
+                System.out.print("Enter your Age: ");
+                age = scanner.nextInt();
+                scanner.nextLine();
+
+                if(age >= 0 && age <= 100){
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid input! Age must be between 0 and 100");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input! Please enter a number only!");
+                scanner.nextLine();
+            }
+        }
+
+        String gender = "";
+        boolean validGender = false;
+
+        while(!validGender) {
+            System.out.print("Enter your Gender (M/F): ");
+            gender = scanner.nextLine().trim().toUpperCase();
+
+            if (gender.equals("M") || gender.equals("F")){
+                validGender = true;
+            } else {
+                System.out.println("Invalid input! Please enter 'M' or 'F'");
+            }
+        }
+
         clear();
-
         Menu menu = new Menu();
-        
 
-        int choice;
-        do{
+        int choice = -1;
+        boolean validChoice = false;
+        while (choice != 6) {
+
             menu.displayMenu();
             System.out.print("Enter your Choice: ");
-            choice = scanner.nextInt();
-            switch(choice){
-                case 1: 
-                    clear();
-                    System.out.print("Enter your current weight (kg): ");
-                    double weight = scanner.nextDouble();
-                
-                    System.out.print("Enter your current height (m): ");
-                    double height = scanner.nextDouble();
-                    
-                    
-                    BMI bmi = new BMI(name, age, gender, weight, height);
-                    bmi.displayResult();
-                    try {
-                        RandomAccessFile file = new RandomAccessFile(filename, "rw");
-                        
-                        if (file.length() == 0) {
-                            file.writeBytes("---------------------------------------------------------------------------------------------------\n");
-                            file.writeBytes(String.format("| %-20s | %-5s | %-10s | %-10s | %-10s | %-10s | %-13s|\n","NAME", "AGE", "GENDER", "WEIGHT", "HEIGHT", "BMI", "DATE"));
-                            file.writeBytes("---------------------------------------------------------------------------------------------------\n");
-                        }
+            
+            if(scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-                        file.seek(file.length());
+                if(choice >= 1 && choice <= 6) {
+                    validChoice = true;
+                } else {
+                    System.out.println(Colors.RED + "Invalid option! Please enter a number between 1 and 6!" + Colors.RESET);
+                    validChoice = false;
+                }
+            } else {
+                System.out.println(Colors.RED + "Invalid input! Please enter a valid number!" + Colors.RESET);
+                scanner.nextLine();
+                validChoice = false;
+            }
 
-                        file.writeBytes(String.format("| %-20s | %-5d | %-10s | %-10.2f | %-10.2f | %-10.2f | %-13s|\n", name, age, gender.toUpperCase(), weight, height, bmi.calculateBMI(), java.time.LocalDate.now()));
-                        file.writeBytes("---------------------------------------------------------------------------------------------------\n");
+            if (validChoice) {
+                switch(choice){
+                    case 1: 
+                        clear();
 
-                        file.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("\n");
-                    break;
-                    case 2:
-                    clear();
-                        System.out.print("Enter the number of steps you've walked today: ");
-                        int step = scanner.nextInt();
-                        System.out.print("Enter the number of your goal step: ");
-                        int stepGoal = scanner.nextInt();
-                        System.out.print("Enter your weight (kg): ");
-                        double weightInStep = scanner.nextDouble();
-                        stepTracker Step = new stepTracker(name, age, gender, step, stepGoal, weightInStep);
-                        Step.displayResult();
-                        System.out.println("\n");
-                        break;
-                    case 3: 
-                    clear();
-                        double goal;
-                        System.out.println("\t***Note. Positive number only!***");
-                        do{
-                            System.out.print("Enter your daily water intake goal (in liters): ");
-                            goal = scanner.nextDouble();
-                        } while(goal <= 0);
-
-                        WaterTracker waterTracker = new WaterTracker(goal, name, age, gender);
-                        String userChoice = "yes";
-                        while (userChoice.equalsIgnoreCase("yes") && waterTracker.getIntakeProgress() < 100){
-                            System.out.print("\nEnter the amount of water you drank (in liters): ");
-                            double waterAmount = scanner.nextDouble();
-                            waterTracker.logWaterIntake(waterAmount);
-                            waterTracker.displayResult();
-                            System.out.println("Intake Progress: " + waterTracker.getIntakeProgress() + "%");
-                            if(waterTracker.getIntakeProgress() < 100){
-                                System.out.print("\nDo you want to log more water intake? (yes/no): ");
-                                userChoice = scanner.next();
+                        double weight = -1;
+                        while(weight <= 0) {     
+                            System.out.print("Enter your current weight (kg): ");
+                            if(scanner.hasNextDouble()) {
+                                weight = scanner.nextDouble();
+                                if(weight <= 0) {
+                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                }
+                            } else {
+                                System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
+                                scanner.next();
                             }
                         }
+
+                        double height = -1;
+                        while(height <= 0) {
+                            System.out.print("Enter your current height (m): ");
+                            if(scanner.hasNextDouble()){
+                                height = scanner.nextDouble(); 
+                                if(height <= 0) {
+                                    System.out.println(Colors.RED + "Oops! Height should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                }
+                            } else {
+                                System.out.println(Colors.RED + "Invalid input! Please enter a valid number for height." + Colors.RESET);
+                                scanner.next();
+                            }
+                        }
+                        
+                        BMI bmi = new BMI(name, age, gender, weight, height);
+                        bmi.displayResult();
+
+                        //Insert BMI data into MySQL database
+                        String insertQuery = "INSERT INTO bmi_data (Name, Age, Gender, Weight, Height, BMI, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        try (Connection connection = getConnection();
+                            PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
+
+                                stmt.setString(1, name);
+                                stmt.setInt(2, age);
+                                stmt.setString(3, gender);
+                                stmt.setDouble(4, weight);
+                                stmt.setDouble(5, height);
+                                stmt.setDouble(6, bmi.calculateBMI());
+                                stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+
+                                stmt.executeUpdate();
+                                System.out.println("BMI data saved to database successfully!");
+                        } catch (SQLException e) {
+                            System.out.println("Error while saving BMI data to database: " + e.getMessage());
+                        }
+
                         System.out.println("\n");
                         break;
+                    case 2:
+                        clear();
+                            int step = -1, stepGoal = -1;
+
+                            while (step < 0) {
+                                System.out.print("Enter the number of steps you've walked today: ");
+                                if(scanner.hasNextInt()) {
+                                    step = scanner.nextInt();
+                                    if(step < 0){
+                                        System.out.println(Colors.RED + "Steps cannot be negative! Please enter a positive number." + Colors.RESET);
+                                    }
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for steps." + Colors.RESET);
+                                    scanner.next();
+                                }
+                            }
+
+                            while (stepGoal <= 0) {
+                                System.out.print("Enter the number of your goal step: ");
+                                if(scanner.hasNextDouble()){
+                                    stepGoal = scanner.nextInt();
+                                    if (stepGoal <= 0) {
+                                        System.out.println(Colors.RED + "Step goal must be greater than 0! Please try again." + Colors.RESET);
+                                    }
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for your step goal." + Colors.RESET);
+                                    scanner.next();
+                                }
+                            }
+
+                            double weightInStep = -1;
+                            while(weightInStep <= 0) {     
+                                System.out.print("Enter your weight (kg): ");
+                                if(scanner.hasNextDouble()) {
+                                    weightInStep = scanner.nextDouble();
+                                    if(weightInStep <= 0) {
+                                        System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                    }
+                                } else {
+                                    System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
+                                    scanner.next();
+                                } 
+                            }
+                            
+                            stepTracker Step = new stepTracker(name, age, gender, step, stepGoal, weightInStep);
+                            Step.displayResult();
+                            System.out.println("\n");
+                            break;
+                    case 3: 
+                        clear();
+                            double goal;
+                            System.out.println("\t***Note. Positive number only!***");
+                            do{
+                                System.out.print("Enter your daily water intake goal (in liters): ");
+                                if(scanner.hasNextDouble()){
+                                    goal = scanner.nextDouble();
+                                    if(goal <= 0){
+                                        System.out.println(Colors.RED + "Water intake goal must be a positive number! Please try again." + Colors.RESET);
+                                    }
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake goal." + Colors.RESET);
+                                    scanner.next();
+                                    goal = -1;
+                                }
+                            } while(goal <= 0);
+
+                            WaterTracker waterTracker = new WaterTracker(goal, name, age, gender);
+                            String userChoice = "yes";
+
+                            while (userChoice.equalsIgnoreCase("yes") && waterTracker.getIntakeProgress() < 100){
+
+                                double waterAmount = -1;
+                                while (waterAmount <= 0) {
+                                    System.out.print("\nEnter the amount of water you drank (in liters): ");
+                                    if(scanner.hasNextDouble()){
+                                        waterAmount = scanner.nextDouble();
+                                        if(waterAmount <= 0){
+                                            System.out.println(Colors.RED + "Water intake must be a positive value! Please try again." + Colors.RESET);
+                                        }
+                                    } else {
+                                        System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake." + Colors.RESET);
+                                        scanner.next();
+                                        waterAmount = -1;
+                                    }
+                                }
+                                if (waterAmount <= 0) {
+                                    System.out.println("Please enter a positive value for water intake!");
+                                }
+
+                                waterTracker.logWaterIntake(waterAmount);
+                                waterTracker.displayResult();
+                                System.out.println("Intake Progress: " + waterTracker.getIntakeProgress() + "%");
+
+                                if(waterTracker.getIntakeProgress() < 100){
+                                    System.out.print("\nDo you want to log more water intake? (yes/no): ");
+                                    userChoice = scanner.next();
+                                    while(!userChoice.equalsIgnoreCase("yes") && !userChoice.equalsIgnoreCase("no")) {
+                                        System.out.println(Colors.RED + "Invalid input! Please enter 'yes' or 'no'." + Colors.RESET);
+                                        userChoice = scanner.next();
+                                    }
+                                }
+                            }
+                            System.out.println("\n");
+                            break;
 
                     case 4:
-                    clear();
-                        SleepTracker sleepTracker = new SleepTracker(name, age, gender);
-                        sleepTracker.inputData();
-                        sleepTracker.displayResult();
-                        break;
+                        clear();
+                            SleepTracker sleepTracker = new SleepTracker(name, age, gender);
+                            sleepTracker.inputData();
+                            sleepTracker.displayResult();
+                            break;
 
                     case 5:
-                    clear();
-                        HeartTracker heartTracker = new HeartTracker(name, age, gender);
-                        heartTracker.process();
-                        heartTracker.displayResult();
-                        break;
-                           
-                    case 10:
-                    clear();
-                        System.exit(0);
+                        clear();
+                            HeartTracker heartTracker = new HeartTracker(name, age, gender);
+                            heartTracker.process();
+                            heartTracker.displayResult();
+                            break;
+                            
+                    case 6:
+                        clear();
+                            System.exit(0);
                     default:
-                        System.out.println("Error");
-                        System.out.println("\n");
-                        menu.displayMenu();
+                            System.out.println("Please Choice Correct Option!");
+                            break;
+                }
             }
-        } while(choice != 10);
+        } 
         scanner.close();
     }
 }
+
+

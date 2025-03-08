@@ -1,5 +1,3 @@
-
-
 public abstract class Client {
     protected String name;
     protected int age;
