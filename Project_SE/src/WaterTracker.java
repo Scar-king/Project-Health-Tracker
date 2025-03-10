@@ -22,25 +22,27 @@ public class WaterTracker extends Client {
     private void saveDataToDatabase(){
         String query = "INSERT INTO water_data (Name, Age, Gender, Total_Water_Intake, Goal_Water_Intake, Hydration_Level, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement stmt = connection.prepareStatement(query)){
+            PreparedStatement statement = connection.prepareStatement(query)){
             
-            stmt.setString(1, name);
-            stmt.setInt(2, age);
-            stmt.setString(3, gender);
-            stmt.setDouble(4, totalWaterIntake);
-            stmt.setDouble(5, goalWaterIntake);
-            stmt.setString(6, hydrationLevel);
-            stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            statement.setString(1, name);
+            statement.setInt(2, age);
+            statement.setString(3, gender);
+            statement.setDouble(4, totalWaterIntake);
+            statement.setDouble(5, goalWaterIntake);
+            statement.setString(6, hydrationLevel);
+            statement.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-            stmt.executeUpdate();
-            System.out.println("Water Tracker Data saved successfully!");
+            statement.executeUpdate();
+            System.out.println(Colors.GREEN + "Water Tracker Data saved successfully!" + Colors.RESET);
         } catch (SQLException e) {
-           System.out.println("Error saving water tracker data: " + e.getMessage());
+           System.out.println(Colors.RED + "Error saving water tracker data: " + e.getMessage() + Colors.RESET);
         }
     }
 
+    //Water that we drank
     public void logWaterIntake(double waterAmount){
         this.totalWaterIntake += waterAmount;
+        // Add amount of water that you drank into arraylist.
         dailyIntakes.add(waterAmount);
         updateHydrationLevel();
         saveDataToDatabase();

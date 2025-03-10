@@ -51,8 +51,7 @@ public class stepTracker extends Client {
     }
 
     double caloriesBurned(){
-        // return ((double)stepCount / 2000) * weight;
-        return stepCount * weight * 0.04;
+        return ((double)stepCount / 2000) * weight;
     }
 
     @Override
