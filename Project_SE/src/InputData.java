@@ -100,40 +100,45 @@ public class InputData {
                         clear();
 
                         double weight = -1;
-                        while(weight <= 0) {     
-                            System.out.print("Enter your current weight (kg): ");
-                            if(scanner.hasNextDouble()) {
+                        boolean validWeight = false;
+                        while(!validWeight) {  
+                            try {
+                                System.out.print("Enter your current weight (kg): ");
                                 weight = scanner.nextDouble();
-                                if(weight <= 0) {
-                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                if(weight >= 0 && weight <= 200) {
+                                    validWeight = true;
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0 and should be less than 200 (kg). Please try again." + Colors.RESET);
                                 }
-                            } else {
+                            } catch (Exception e) {
                                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
-                                scanner.next();
-                            }
+                                scanner.nextLine();
+                            }   
                         }
 
                         double height = -1;
-                        while(height <= 0) {
-                            System.out.print("Enter your current height (m): ");
-                            if(scanner.hasNextDouble()){
+                        boolean validHeight = false;
+                        while(!validHeight) {
+                            try {
+                                System.out.print("Enter your current height (m): ");
                                 height = scanner.nextDouble(); 
-                                if(height <= 0) {
-                                    System.out.println(Colors.RED + "Oops! Height should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                if(height >= 0 && height <= 2.5) {
+                                    validHeight = true;
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! Height should be a positive number greater than 0 and should be less than 2.5 (m). Please try again." + Colors.RESET);
                                 }
-                            } else {
+                            } catch (Exception e) {
                                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number for height." + Colors.RESET);
-                                scanner.next();
+                                scanner.nextLine();
                             }
                         }
                         
                         BMI bmi = new BMI(name, age, gender, weight, height);
                         bmi.displayResult();
 
-                        //Insert BMI data into MySQL database
-                        String insertQuery = "INSERT INTO bmi_data (Name, Age, Gender, Weight, Height, BMI, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        String query = "INSERT INTO bmi_data (Name, Age, Gender, Weight, Height, BMI, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
                         try (Connection connection = getConnection();
-                            PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
+                            PreparedStatement stmt = connection.prepareStatement(query)) {
 
                                 stmt.setString(1, name);
                                 stmt.setInt(2, age);
@@ -202,7 +207,6 @@ public class InputData {
                     case 3: 
                         clear();
                             double goal;
-                            System.out.println("\t***Note. Positive number only!***");
                             do{
                                 System.out.print("Enter your daily water intake goal (in liters): ");
                                 if(scanner.hasNextDouble()){
