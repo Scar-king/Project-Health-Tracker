@@ -18,6 +18,5 @@ public class Colors {
     public static final String BRIGHT_PURPLE = "\u001B[95m";
     public static final String BRIGHT_CYAN = "\u001B[96m";
     public static final String BRIGHT_WHITE = "\u001B[97m";
-    public static final String PINK_TRUE_COLOR = "\u001B[38;2;255;192;203m";
 }
 
