@@ -23,7 +23,6 @@ public class InputData {
     void InputValue(){
         Scanner scanner = new Scanner(System.in);
 
-        // Name Input
         String name;
         while(true) {
             System.out.print("Enter your Name: ");
@@ -49,7 +48,7 @@ public class InputData {
                 } else {
                     System.out.println("Invalid input! Age must be between 0 and 100");
                 }
-            } else {
+            } catch (Exception e) {
                 System.out.println("Invalid input! Please enter a number only!");
                 scanner.nextLine();
             }
@@ -72,8 +71,10 @@ public class InputData {
         clear();
         Menu menu = new Menu();
 
-        int choice;
-        while (true) {
+        int choice = -1;
+        boolean validChoice = false;
+        while (choice != 6) {
+
             menu.displayMenu();
             System.out.print("Enter your Choice: ");
             
@@ -85,12 +86,13 @@ public class InputData {
                     validChoice = true;
                 } else {
                     System.out.println(Colors.RED + "Invalid option! Please enter a number between 1 and 6!" + Colors.RESET);
+                    validChoice = false;
                 }
             } else {
                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number!" + Colors.RESET);
                 scanner.nextLine();
+                validChoice = false;
             }
-        }
 
             if (validChoice) {
                 switch(choice){
@@ -158,12 +160,12 @@ public class InputData {
                         clear();
                             int step = -1, stepGoal = -1;
 
-                            while (step < 1) {
+                            while (step < 0) {
                                 System.out.print("Enter the number of steps you've walked today: ");
                                 if(scanner.hasNextInt()) {
                                     step = scanner.nextInt();
-                                    if(step < 1){
-                                        System.out.println(Colors.RED + "Steps cannot be negative and should be greater than 1! Please enter a positive number." + Colors.RESET);
+                                    if(step < 0){
+                                        System.out.println(Colors.RED + "Steps cannot be negative! Please enter a positive number." + Colors.RESET);
                                     }
                                 } else {
                                     System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for steps." + Colors.RESET);
@@ -175,8 +177,8 @@ public class InputData {
                                 System.out.print("Enter the number of your goal step: ");
                                 if(scanner.hasNextDouble()){
                                     stepGoal = scanner.nextInt();
-                                    if (stepGoal <= 1) {
-                                        System.out.println(Colors.RED + "Step goal must be greater than 1! Please try again." + Colors.RESET);
+                                    if (stepGoal <= 0) {
+                                        System.out.println(Colors.RED + "Step goal must be greater than 0! Please try again." + Colors.RESET);
                                     }
                                 } else {
                                     System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for your step goal." + Colors.RESET);
@@ -185,20 +187,17 @@ public class InputData {
                             }
 
                             double weightInStep = -1;
-                            boolean validWeightInStep = false;
-                            while(!validWeightInStep) {     
-                                try {
-                                    System.out.print("Enter your weight (kg): ");
+                            while(weightInStep <= 0) {     
+                                System.out.print("Enter your weight (kg): ");
+                                if(scanner.hasNextDouble()) {
                                     weightInStep = scanner.nextDouble();
-                                    if(weightInStep >= 0 && weightInStep <= 200) {
-                                        validWeightInStep = true;
-                                    } else {
-                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0 and should be less than 200 (kg). Please try again." + Colors.RESET);
-                                    } 
-                                } catch (Exception e) {
+                                    if(weightInStep <= 0) {
+                                        System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                    }
+                                } else {
                                     System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
                                     scanner.next();
-                                }
+                                } 
                             }
                             
                             stepTracker Step = new stepTracker(name, age, gender, step, stepGoal, weightInStep);
