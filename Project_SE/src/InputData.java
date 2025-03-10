@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.sql.*;
+import java.util.Scanner;
 
 public class InputData {
 
@@ -99,6 +99,8 @@ public class InputData {
                     case 1: 
                         clear();
 
+                        menu.BMI();
+
                         double weight = -1;
                         boolean validWeight = false;
                         while(!validWeight) {  
@@ -158,6 +160,7 @@ public class InputData {
                         break;
                     case 2:
                         clear();
+                        menu.step();
                             int step = -1, stepGoal = -1;
 
                             while (step < 0) {
@@ -206,6 +209,7 @@ public class InputData {
                             break;
                     case 3: 
                         clear();
+                        menu.water();
                             double goal;
                             do{
                                 System.out.print("Enter your daily water intake goal (in liters): ");
@@ -262,6 +266,7 @@ public class InputData {
 
                     case 4:
                         clear();
+                        menu.sleep();
                             SleepTracker sleepTracker = new SleepTracker(name, age, gender);
                             sleepTracker.inputData();
                             sleepTracker.displayResult();
@@ -269,6 +274,7 @@ public class InputData {
 
                     case 5:
                         clear();
+                        menu.heart();
                             HeartTracker heartTracker = new HeartTracker(name, age, gender);
                             heartTracker.process();
                             heartTracker.displayResult();
