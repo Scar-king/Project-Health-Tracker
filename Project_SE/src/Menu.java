@@ -42,17 +42,17 @@ public class Menu {
     }
 
     void step(){
-        System.out.println(Colors.BRIGHT_PURPLE+"/$$$$$$   /$$                               /$$$$$$$$                           /$$                          "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+" /$$__  $$ | $$                              |__  $$__/                          | $$                          "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"| $$  \\__//$$$$$$    /$$$$$$   /$$$$$$          | $$  /$$$$$$  /$$$$$$   /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$ "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"|  $$$$$$|_  $$_/   /$$__  $$ /$$__  $$         | $$ /$$__  $$|____  $$ /$$_____/| $$  /$$/ /$$__  $$ /$$__  $$"+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+" \\____  $$ | $$    | $$$$$$$$| $$  \\ $$         | $$| $$  \\__/ /$$$$$$$| $$      | $$$$$$/ | $$$$$$$$| $$  \\__/"+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+" /$$  \\ $$ | $$ /$$| $$_____/| $$  | $$         | $$| $$      /$$__  $$| $$      | $$_  $$ | $$_____/| $$      "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"|  $$$$$$/ |  $$$$/|  $$$$$$$| $$$$$$$/         | $$| $$     |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+" \\______/   \\___/   \\_______/| $$____/          |__/|__/      \\_______/ \\_______/|__/  \\__/ \\_______/|__/      "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"                             | $$                                                                              "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"                             | $$                                                                              "+Colors.RESET);
-        System.out.println(Colors.BRIGHT_PURPLE+"                             |__/                                                                              "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"/$$$$$$   /$$                               /$$$$$$$$                           /$$                          "+Colors.RESET);
+        System.out.println(Colors.PURPLE+" /$$__  $$ | $$                              |__  $$__/                          | $$                          "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"| $$  \\__//$$$$$$    /$$$$$$   /$$$$$$          | $$  /$$$$$$  /$$$$$$   /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$ "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"|  $$$$$$|_  $$_/   /$$__  $$ /$$__  $$         | $$ /$$__  $$|____  $$ /$$_____/| $$  /$$/ /$$__  $$ /$$__  $$"+Colors.RESET);
+        System.out.println(Colors.PURPLE+" \\____  $$ | $$    | $$$$$$$$| $$  \\ $$         | $$| $$  \\__/ /$$$$$$$| $$      | $$$$$$/ | $$$$$$$$| $$  \\__/"+Colors.RESET);
+        System.out.println(Colors.PURPLE+" /$$  \\ $$ | $$ /$$| $$_____/| $$  | $$         | $$| $$      /$$__  $$| $$      | $$_  $$ | $$_____/| $$      "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"|  $$$$$$/ |  $$$$/|  $$$$$$$| $$$$$$$/         | $$| $$     |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      "+Colors.RESET);
+        System.out.println(Colors.PURPLE+" \\______/   \\___/   \\_______/| $$____/          |__/|__/      \\_______/ \\_______/|__/  \\__/ \\_______/|__/      "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"                             | $$                                                                              "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"                             | $$                                                                              "+Colors.RESET);
+        System.out.println(Colors.PURPLE+"                             |__/                                                                              "+Colors.RESET);
     }
 
     void water(){
@@ -90,6 +90,19 @@ public class Menu {
         System.out.println(Colors.BRIGHT_RED+"| $$  | $$| $$_____/ /$$__  $$| $$        | $$ /$$         | $$   | $$       /$$__  $$| $$      | $$_  $$ | $$_____/| $$      ");
         System.out.println(Colors.BRIGHT_RED+"| $$  | $$|  $$$$$$$|  $$$$$$$| $$        |  $$$$/         | $$   | $$      |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      ");
         System.out.println(Colors.BRIGHT_RED+"|__/  |__/ \\_______/ \\_______/|__/         \\___/           |__/   |__/       \\_______/ \\_______/|__/  \\__/ \\_______/|__/      ");
+    }
+    void thank(){
+        System.out.println(Colors.PINK_TRUE_COLOR + "/$$$$$$$$ /$$                           /$$                                                 /$$ /$$" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "|__  $$__/| $$                          | $$                                                | $$| $$" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   | $$   | $$$$$$$   /$$$$$$  /$$$$$$$ | $$   /$$       /$$   /$$  /$$$$$$  /$$   /$$      | $$| $$" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   | $$   | $$__  $$ |____  $$| $$__  $$| $$  /$$/      | $$  | $$ /$$__  $$| $$  | $$      | $$| $$" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   | $$   | $$  \\ $$  /$$$$$$$| $$  \\ $$| $$$$$$/       | $$  | $$| $$  \\ $$| $$  | $$      |__/|__/" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   | $$   | $$  | $$ /$$__  $$| $$  | $$| $$_  $$       | $$  | $$| $$  | $$| $$  | $$             " + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   | $$   | $$  | $$|  $$$$$$$| $$  | $$| $$ \\  $$      |  $$$$$$$|  $$$$$$/|  $$$$$$/       /$$ /$$" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "   |__/   |__/  |__/ \\_______/|__/  |__/|__/  \\__/       \\____  $$ \\______/  \\______/       |__/|__/" + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "                                                         /$$  | $$                                  " + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "                                                        |  $$$$$$/                                  " + Colors.RESET);
+        System.out.println(Colors.PINK_TRUE_COLOR + "                                                         \\______/                                   " + Colors.RESET);
     }
 }
 
