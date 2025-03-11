@@ -82,7 +82,7 @@ public class WaterTracker extends Client {
             System.out.println(Colors.BRIGHT_YELLOW+"No logs available yet."+Colors.RESET);
         } else {
             for(int i = 0; i < dailyIntakes.size(); i++){
-                System.out.printf(Colors.BRIGHT_PURPLE+"The Number of Intake %d: %.2f L\n", i + 1, dailyIntakes.get(i)+Colors.RESET);
+                System.out.printf(Colors.BRIGHT_PURPLE+"The Number of Intake %d: %.2f L\n"+Colors.RESET, i + 1, dailyIntakes.get(i));
             }
         }
     }
