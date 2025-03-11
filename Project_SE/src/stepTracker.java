@@ -39,10 +39,10 @@ public class stepTracker extends Client {
             stmt.setDouble(6, weight);
             stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-            System.out.println("Step Tracker data saved to database successfully!");
+            System.out.println(Colors.GREEN+"Step Tracker data saved to database successfully!"+Colors.RESET);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error saving data: " + e.getMessage());
+            System.out.println(Colors.RED+"Error saving data: "+Colors.RESET + e.getMessage());
         }
     }
 
