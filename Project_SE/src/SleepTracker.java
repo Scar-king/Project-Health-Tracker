@@ -101,9 +101,9 @@ public class SleepTracker extends Client {
             stmt.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
             stmt.executeUpdate();
-            System.out.println("Sleep Data saved successfully!");
+            System.out.println(Colors.GREEN+"Sleep Data saved successfully!"+Colors.RESET);
         } catch ( SQLException e) {
-            System.out.println("Error saving Sleep Data: " + e.getMessage());
+            System.out.println(Colors.RED+"Error saving Sleep Data: "+Colors.RESET + e.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class SleepTracker extends Client {
 
         System.out.println("\nSleep History:");
         if(sleepHistory.isEmpty()) {
-            System.out.println("No sleep data available.");
+            System.out.println(Colors.BRIGHT_YELLOW+"No sleep data available."+Colors.RESET);
         } else {
             for(SleepSession session : sleepHistory) {
                 System.out.println(session);
@@ -163,6 +163,6 @@ class SleepSession {
     @Override
     public String toString() {
         return String.format("Start Time: %s, Wake-Up Time: %s, Time in Bed: %.2f hours, Sleep Duration: %.2f hours, Sleep Efficiency: %.2f%%",
-                             sleepStart, wakeUpTime, timeInBed, totalSleepHours, sleepEfficiency);
+        sleepStart, wakeUpTime, timeInBed, totalSleepHours, sleepEfficiency);
     }
 }
