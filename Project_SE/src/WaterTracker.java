@@ -35,7 +35,7 @@ public class WaterTracker extends Client {
             statement.executeUpdate();
             System.out.println(Colors.GREEN + "Water Tracker Data saved successfully!" + Colors.RESET);
         } catch (SQLException e) {
-           System.out.println(Colors.RED + "Error saving water tracker data: " + e.getMessage() + Colors.RESET);
+            System.out.println(Colors.RED + "Error saving water tracker data: " + e.getMessage() + Colors.RESET);
         }
     }
 
@@ -79,10 +79,10 @@ public class WaterTracker extends Client {
 
         System.out.println("\nWater Intake History:");
         if (dailyIntakes.isEmpty()) {
-            System.out.println("No logs available yet.");
+            System.out.println(Colors.BRIGHT_YELLOW+"No logs available yet."+Colors.RESET);
         } else {
             for(int i = 0; i < dailyIntakes.size(); i++){
-                System.out.printf("The number of Intake %d: %.2f L\n", i + 1, dailyIntakes.get(i));
+                System.out.printf(Colors.BRIGHT_PURPLE+"The Number of Intake %d: %.2f L\n"+Colors.RESET, i + 1, dailyIntakes.get(i));
             }
         }
     }

@@ -46,7 +46,7 @@ public class InputData {
                     System.out.println(Colors.RED + "Invalid input! Age must be between 15 and 100" + Colors.RESET);
                 }
             } catch (Exception e) {
-                System.out.println("Invalid input! Please enter a number only!");
+                System.out.println(Colors.RED+"Invalid input! Please enter a number only!"+Colors.RESET);
                 scanner.nextLine();
             }
         }
@@ -61,7 +61,7 @@ public class InputData {
             if (gender.equals("M") || gender.equals("F")) {
                 validGender = true;
             } else {
-                System.out.println("Invalid input! Please enter 'M' or 'F'");
+                System.out.println(Colors.RED+"Invalid input! Please enter 'M' or 'F'"+Colors.RESET);
             }
         }
 
@@ -156,7 +156,7 @@ public class InputData {
                         clear();
                         menu.step();
                         int step = -1,
-                         stepGoal = -1;
+                        stepGoal = -1;
 
                         while (step < 0) {
                             System.out.print("Enter the number of steps you've walked today: ");
@@ -246,6 +246,9 @@ public class InputData {
                             // if (waterAmount <= 0) {
                             //     System.out.println("Please enter a positive value for water intake!");
                             // }
+                            if (waterAmount <= 0) {
+                                System.out.println(Colors.RED+"Please enter a positive value for water intake!"+Colors.RED);
+                            }
 
                             waterTracker.logWaterIntake(waterAmount);
                             waterTracker.displayResult();
@@ -289,7 +292,7 @@ public class InputData {
 
                         System.exit(0);
                     default:
-                        System.out.println("Please Choice Correct Option!");
+                        System.out.println(Colors.GREEN+"Please Choice Correct Option!"+Colors.RESET);
                         break;
                 }
             }
