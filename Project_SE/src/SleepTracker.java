@@ -22,7 +22,7 @@ public class SleepTracker extends Client {
         super(name, age, gender);
         this.sleepStart = LocalTime.of(0,0);
         this.wakeUpTime = LocalTime.of(0,0);
-        this.timeInBedDuration = Duration.ZERO;;
+        this.timeInBedDuration = Duration.ZERO;
         this.timeInBed = 0.0;
         this.awakeMinutes = 0;
         this.totalSleepHours = 0.0;
@@ -32,7 +32,6 @@ public class SleepTracker extends Client {
 
     public void inputData(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Sleep Tracker!");
         System.out.println("Please enter your sleep details in 24-hour format " + Colors.BRIGHT_RED + "(HH:mm)." + Colors.RESET);
 
         this.sleepStart = getValidTime(scanner, "Enter sleep start time " + Colors.BRIGHT_RED + "(e.g., 22:30 for 10:30 PM): " + Colors.RESET);

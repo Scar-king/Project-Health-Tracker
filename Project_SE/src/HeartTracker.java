@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +24,6 @@ public class HeartTracker extends Client {
     }
 
     public void process() {
-        System.out.println("Welcome to Heart Rate Monitor!");
 
         while (true) {
             System.out.print("Enter your resting heart rate" + Colors.RED + " (Relax Heart Beat) " + Colors.RESET + "(BPM): ");
@@ -92,7 +92,7 @@ public class HeartTracker extends Client {
             stmt.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
             stmt.executeUpdate();
-            System.out.println("Heart Data saved successfully!");
+            System.out.println(Colors.GREEN + "Heart Data saved successfully!" + Colors.RESET);
         } catch (SQLException e) {
             System.out.println("Error saving Heart Data: " + e.getMessage());  
         }
@@ -109,6 +109,7 @@ public class HeartTracker extends Client {
         System.out.println("\n===============================");
         System.out.println(" Max Heart Rate: " + maxHR + " BPM");
         System.out.println(" Your Current Heart Rate: " + currentHR + " BPM");
+        System.out.println(" Your Heart Rate Reserve: " + hrr + " BPM");
         System.out.println(" Heart Rate Zone: " + heartZone);
         System.out.println("===============================");
     }

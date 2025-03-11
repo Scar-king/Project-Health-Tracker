@@ -28,7 +28,7 @@ public class BMI extends Client {
         System.out.printf("GENDER: %s\n", gender.toUpperCase());
         System.out.printf("AGE: %d\n\n", age);
         if (bmi > 24.9) {
-            System.out.printf(Colors.YELLOW + "You should reduce %.2f kg to reach a healthy weight.\n", weightToReduce() + Colors.RESET);
+            System.out.println(Colors.YELLOW + "You should reduce " + weightToReduce() + " kg to reach a healthy weight.\n"  + Colors.RESET);
         } else {
             System.out.println(Colors.GREEN + "Your weight is within a healthy range!\n" + Colors.RESET);
         }

@@ -1,14 +1,11 @@
-
 import java.sql.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputData {
-
+    
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/health_tracker";
-        String user = "root";
-        String password = System.getenv("PASSWORD");
-        return DriverManager.getConnection(url, user, password);
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
     }
 
     public static void clear() {
@@ -43,10 +40,10 @@ public class InputData {
                 age = scanner.nextInt();
                 scanner.nextLine();
 
-                if (age >= 0 && age <= 100) {
+                if (age >= 15 && age <= 100) {
                     validInput = true;
                 } else {
-                    System.out.println("Invalid input! Age must be between 0 and 100");
+                    System.out.println(Colors.RED + "Invalid input! Age must be between 15 and 100" + Colors.RESET);
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input! Please enter a number only!");
@@ -105,12 +102,12 @@ public class InputData {
                             try {
                                 System.out.print("Enter your current weight (kg): ");
                                 weight = scanner.nextDouble();
-                                if (weight >= 0 && weight <= 200) {
+                                if (weight >= 20 && weight <= 200) {
                                     validWeight = true;
                                 } else {
-                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0 and should be less than 200 (kg). Please try again." + Colors.RESET);
+                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 20 and should be less than 200 (kg). Please try again." + Colors.RESET);
                                 }
-                            } catch (Exception e) {
+                            } catch (InputMismatchException e) {
                                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
                                 scanner.nextLine();
                             }
@@ -122,12 +119,12 @@ public class InputData {
                             try {
                                 System.out.print("Enter your current height (m): ");
                                 height = scanner.nextDouble();
-                                if (height >= 0 && height <= 2.5) {
+                                if (height >= 1 && height <= 2.5) {
                                     validHeight = true;
                                 } else {
-                                    System.out.println(Colors.RED + "Oops! Height should be a positive number greater than 0 and should be less than 2.5 (m). Please try again." + Colors.RESET);
+                                    System.out.println(Colors.RED + "Oops! Height should be a positive number greater than 1 and should be less than 2.5 (m). Please try again." + Colors.RESET);
                                 }
-                            } catch (Exception e) {
+                            } catch (InputMismatchException e) {
                                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number for height." + Colors.RESET);
                                 scanner.nextLine();
                             }
@@ -148,9 +145,9 @@ public class InputData {
                             stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
                             stmt.executeUpdate();
-                            System.out.println("BMI data saved to database successfully!");
+                            System.out.println(Colors.GREEN + "BMI data saved to database successfully!" + Colors.RESET);
                         } catch (SQLException e) {
-                            System.out.println("Error while saving BMI data to database: " + e.getMessage());
+                            System.out.println(Colors.RED + "Error while saving BMI data to database: " + e.getMessage() + Colors.RESET);
                         }
 
                         System.out.println("\n");
@@ -188,16 +185,20 @@ public class InputData {
                         }
 
                         double weightInStep = -1;
-                        while (weightInStep <= 0) {
-                            System.out.print("Enter your weight (kg): ");
-                            if (scanner.hasNextDouble()) {
+                        boolean validWeightInStep = false;
+                        while (!validWeightInStep) {
+                            try {
+                                System.out.print("Enter your weight (kg): ");
                                 weightInStep = scanner.nextDouble();
-                                if (weightInStep <= 0) {
-                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 0. Please try again." + Colors.RESET);
+                                if (weightInStep >= 20 && weightInStep <= 200) {
+                                    validWeightInStep = true;
                                 }
-                            } else {
+                                else {
+                                    System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 20. Please try again." + Colors.RESET);
+                                }
+                            } catch (Exception e) {
                                 System.out.println(Colors.RED + "Invalid input! Please enter a valid number for weight." + Colors.RESET);
-                                scanner.next();
+                                scanner.nextLine();
                             }
                         }
 
