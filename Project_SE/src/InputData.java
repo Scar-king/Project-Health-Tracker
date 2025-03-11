@@ -215,7 +215,7 @@ public class InputData {
                             if (scanner.hasNextDouble()) {
                                 goal = scanner.nextDouble();
                                 if (goal <= 0) {
-                                    System.out.println(Colors.RED + "Water intake goal must be a positive number! Please try again." + Colors.RESET);
+                                    System.out.println(Colors.RED + "Water intake goal must be a positive number and greater than 0! Please try again." + Colors.RESET);
                                 }
                             } else {
                                 System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake goal." + Colors.RESET);
@@ -243,9 +243,9 @@ public class InputData {
                                     waterAmount = -1;
                                 }
                             }
-                            if (waterAmount <= 0) {
-                                System.out.println("Please enter a positive value for water intake!");
-                            }
+                            // if (waterAmount <= 0) {
+                            //     System.out.println("Please enter a positive value for water intake!");
+                            // }
 
                             waterTracker.logWaterIntake(waterAmount);
                             waterTracker.displayResult();
