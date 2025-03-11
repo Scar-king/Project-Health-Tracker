@@ -39,6 +39,8 @@ public class Menu {
         System.out.println(Colors.BRIGHT_GREEN+"                               "+Colors.RESET);
         System.out.println(Colors.BRIGHT_GREEN+"                               "+Colors.RESET);
         System.out.println(Colors.BRIGHT_GREEN+"                               "+Colors.RESET);
+        System.out.println();
+        System.out.println();
     }
 
     void step(){
@@ -53,6 +55,9 @@ public class Menu {
         System.out.println(Colors.PURPLE+"                             | $$                                                                              "+Colors.RESET);
         System.out.println(Colors.PURPLE+"                             | $$                                                                              "+Colors.RESET);
         System.out.println(Colors.PURPLE+"                             |__/                                                                              "+Colors.RESET);
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     void water(){
@@ -64,20 +69,26 @@ public class Menu {
         System.out.println(Colors.BLUE+"| $$$/ \\  $$$ /$$__  $$  | $$ /$$| $$_____/| $$               | $$   | $$       /$$__  $$| $$      | $$_  $$ | $$_____/| $$      "+Colors.RESET);
         System.out.println(Colors.BLUE+"| $$/   \\  $$|  $$$$$$$  |  $$$$/|  $$$$$$$| $$               | $$   | $$      |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      "+Colors.RESET);
         System.out.println(Colors.BLUE+"|__/     \\__/ \\_______/   \\___/   \\_______/|__/               |__/   |__/       \\_______/ \\_______/|__/  \\__/ \\_______/|__/      "+Colors.RESET);
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     void sleep(){
-        System.out.println(Colors.BRIGHT_CYAN+"/$$$$$$  /$$                                       /$$$$$$$$          v                     /$$                          "+Colors.RESET);
+        System.out.println(Colors.BRIGHT_CYAN+"/$$$$$$  /$$                                       /$$$$$$$$                               /$$                          "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"/$$__  $$| $$                                    |__  $$__/                              | $$                          "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"| $$  \\__/| $$  /$$$$$$   /$$$$$$   /$$$$$$          | $$     /$$$$$$   /$$$$$$   /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$ "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"|  $$$$$$ | $$ /$$__  $$ /$$__  $$ /$$__  $$         | $$    /$$__  $$ |____  $$ /$$_____/| $$  /$$/ /$$__  $$ /$$__  $$"+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+" \\____  $$| $$| $$$$$$$$| $$$$$$$$| $$  \\ $$         | $$   | $$  \\__/  /$$$$$$$| $$      | $$$$$$/ | $$$$$$$$| $$  \\__/"+Colors.RESET);
-        System.out.println(Colors.BRIGHT_CYAN+"/$$  \\ $$| $$| $$_____/| $$_____/| $$  | $$         | $$   | $$       /$$__  $$| $$      | $$_  $$ | $$_____/| $$      "+Colors.RESET);
+        System.out.println(Colors.BRIGHT_CYAN+"/$$  \\ $$| $$| $$_____/| $$_____/| $$  | $$          | $$   | $$       /$$__  $$| $$      | $$_  $$ | $$_____/| $$      "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"|  $$$$$$/| $$|  $$$$$$$|  $$$$$$$| $$$$$$$/         | $$   | $$      |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+" \\______/ |__/ \\_______/ \\_______/| $$____/          |__/   |__/       \\_______/ \\_______/|__/  \\__/ \\_______/|__/      "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"                                  | $$                                                                                  "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"                                  | $$                                                                                  "+Colors.RESET);
         System.out.println(Colors.BRIGHT_CYAN+"                                  |__/                                                                                  "+Colors.RESET);
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
     }
 
@@ -90,6 +101,9 @@ public class Menu {
         System.out.println(Colors.BRIGHT_RED+"| $$  | $$| $$_____/ /$$__  $$| $$        | $$ /$$         | $$   | $$       /$$__  $$| $$      | $$_  $$ | $$_____/| $$      ");
         System.out.println(Colors.BRIGHT_RED+"| $$  | $$|  $$$$$$$|  $$$$$$$| $$        |  $$$$/         | $$   | $$      |  $$$$$$$|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$      ");
         System.out.println(Colors.BRIGHT_RED+"|__/  |__/ \\_______/ \\_______/|__/         \\___/           |__/   |__/       \\_______/ \\_______/|__/  \\__/ \\_______/|__/      ");
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
     void thank(){
         System.out.println(Colors.PINK_TRUE_COLOR + "/$$$$$$$$ /$$                           /$$                                                 /$$ /$$" + Colors.RESET);
@@ -103,6 +117,9 @@ public class Menu {
         System.out.println(Colors.PINK_TRUE_COLOR + "                                                         /$$  | $$                                  " + Colors.RESET);
         System.out.println(Colors.PINK_TRUE_COLOR + "                                                        |  $$$$$$/                                  " + Colors.RESET);
         System.out.println(Colors.PINK_TRUE_COLOR + "                                                         \\______/                                   " + Colors.RESET);
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 }
 

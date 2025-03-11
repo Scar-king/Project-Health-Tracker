@@ -82,7 +82,7 @@ public class WaterTracker extends Client {
             System.out.println("No logs available yet.");
         } else {
             for(int i = 0; i < dailyIntakes.size(); i++){
-                System.out.printf("Day %d: %.2f L\n", i + 1, dailyIntakes.get(i));
+                System.out.printf("The Number of Intake %d: %.2f L\n", i + 1, dailyIntakes.get(i));
             }
         }
     }
