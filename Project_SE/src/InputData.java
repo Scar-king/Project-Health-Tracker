@@ -1,9 +1,10 @@
+
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputData {
-    
+
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
     }
@@ -61,7 +62,7 @@ public class InputData {
             if (gender.equals("M") || gender.equals("F")) {
                 validGender = true;
             } else {
-                System.out.println(Colors.RED+"Invalid input! Please enter 'M' or 'F'"+Colors.RESET);
+                System.out.println(Colors.RED + "Invalid input! Please enter 'M' or 'F'" + Colors.RESET);
             }
         }
 
@@ -192,8 +193,7 @@ public class InputData {
                                 weightInStep = scanner.nextDouble();
                                 if (weightInStep >= 20 && weightInStep <= 200) {
                                     validWeightInStep = true;
-                                }
-                                else {
+                                } else {
                                     System.out.println(Colors.RED + "Oops! Weight should be a positive number greater than 20. Please try again." + Colors.RESET);
                                 }
                             } catch (Exception e) {
@@ -243,6 +243,9 @@ public class InputData {
                                     waterAmount = -1;
                                 }
                             }
+                            if (waterAmount <= 0) {
+                                System.out.println(Colors.RED + "Please enter a positive value for water intake!" + Colors.RED);
+                            }
 
                             waterTracker.logWaterIntake(waterAmount);
                             waterTracker.displayResult();
@@ -259,7 +262,6 @@ public class InputData {
                         }
                         System.out.println("\n");
                         break;
-
                     case 4:
                         clear();
                         menu.sleep();
@@ -267,7 +269,6 @@ public class InputData {
                         sleepTracker.inputData();
                         sleepTracker.displayResult();
                         break;
-
                     case 5:
                         clear();
                         menu.heart();
@@ -275,8 +276,7 @@ public class InputData {
                         heartTracker.process();
                         heartTracker.displayResult();
                         break;
-
-                    case 6:
+                        case 6:
                         clear();
                     
                         String exitChoice = "";
@@ -300,9 +300,9 @@ public class InputData {
                             }
                         }
                         break;
-                    
+
                     default:
-                        System.out.println(Colors.GREEN+"Please Choice Correct Option!"+Colors.RESET);
+                        System.out.println(Colors.GREEN + "Please Choice Correct Option!" + Colors.RESET);
                         break;
                 }
             }
