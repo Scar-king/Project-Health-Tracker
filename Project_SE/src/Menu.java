@@ -8,7 +8,7 @@ public class Menu {
         "\t█  Your journey to a healthier you starts   █\n" +
         "\t█               right here!                 █\n" +
         "\t█                                           █\n" +
-        "\t█████████████████████████████████████████████" + 
+        "\t█████████████████████████████████████████████" +
         Colors.RESET);
         System.out.println();
     }

@@ -39,14 +39,16 @@ public class WaterTracker extends Client {
         }
     }
 
-    //Water that we drank
     public void logWaterIntake(double waterAmount){
         this.totalWaterIntake += waterAmount;
-        // Add amount of water that you drank into arraylist.
         dailyIntakes.add(waterAmount);
         updateHydrationLevel();
         saveDataToDatabase();
+        // if (getIntakeProgress() == 100) {
+        //     System.out.println(Colors.BRIGHT_GREEN + "Congratulations! You've reached your water intake goal for the day!" + Colors.RESET);
+        // }
     }
+    
 
     private void updateHydrationLevel() {
         if(totalWaterIntake >= goalWaterIntake * 1.5) {
@@ -67,24 +69,28 @@ public class WaterTracker extends Client {
     }
 
     @Override
-    public void displayResult() {
-        if(gender.equalsIgnoreCase("M")){
-            System.out.println("\nHealth Report for Mr. " + Colors.GREEN + name + Colors.RESET + ":");
-        } else {
-            System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
-        }
-        System.out.println("Total Water Intake: " + totalWaterIntake + " L ");
-        System.out.println("Goal: " + goalWaterIntake + " L ");
-        System.out.println("Hydration Level: " + hydrationLevel);
+public void displayResult() {
+    if(gender.equalsIgnoreCase("M")){
+        System.out.println("\nHealth Report for Mr. " + Colors.GREEN + name + Colors.RESET + ":");
+    } else {
+        System.out.println("\nHealth Report for Ms. " + Colors.GREEN + name + Colors.RESET + ":");
+    }
+    System.out.println("Total Water Intake: " + totalWaterIntake + " L ");
+    System.out.println("Goal: " + goalWaterIntake + " L ");
+    System.out.println("Hydration Level: " + hydrationLevel);
 
-        System.out.println("\nWater Intake History:");
-        if (dailyIntakes.isEmpty()) {
-            System.out.println(Colors.BRIGHT_YELLOW+"No logs available yet."+Colors.RESET);
-        } else {
-            for(int i = 0; i < dailyIntakes.size(); i++){
-                System.out.printf(Colors.BRIGHT_PURPLE+"The Number of Intake %d: %.2f L\n"+Colors.RESET, i + 1, dailyIntakes.get(i));
-            }
+    System.out.println("\nWater Intake History:");
+    if (dailyIntakes.isEmpty()) {
+        System.out.println(Colors.BRIGHT_YELLOW + "No logs available yet." + Colors.RESET);
+    } else {
+        for(int i = 0; i < dailyIntakes.size(); i++){
+            System.out.printf(Colors.BRIGHT_PURPLE + "The Number of Intake %d: %.2f L\n" + Colors.RESET, i + 1, dailyIntakes.get(i));
         }
     }
+    if (getIntakeProgress() == 100) {
+        System.out.println(Colors.BRIGHT_GREEN + "\nCongratulations! You've reached your water intake goal for the day!" + Colors.RESET);
+    }
+}
+
 }
 
