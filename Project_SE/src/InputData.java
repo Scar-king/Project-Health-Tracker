@@ -46,7 +46,7 @@ public class InputData {
                     System.out.println(Colors.RED + "Invalid input! Age must be between 15 and 100" + Colors.RESET);
                 }
             } catch (Exception e) {
-                System.out.println(Colors.RED+"Invalid input! Please enter a number only!"+Colors.RESET);
+                System.out.println(Colors.RED + "Invalid input! Please enter a number only!" + Colors.RESET);
                 scanner.nextLine();
             }
         }
@@ -243,12 +243,6 @@ public class InputData {
                                     waterAmount = -1;
                                 }
                             }
-                            // if (waterAmount <= 0) {
-                            //     System.out.println("Please enter a positive value for water intake!");
-                            // }
-                            if (waterAmount <= 0) {
-                                System.out.println(Colors.RED+"Please enter a positive value for water intake!"+Colors.RED);
-                            }
 
                             waterTracker.logWaterIntake(waterAmount);
                             waterTracker.displayResult();
@@ -284,13 +278,29 @@ public class InputData {
 
                     case 6:
                         clear();
-                        menu.thank();
-                        System.out.println(Colors.PINK_TRUE_COLOR+"╔════════════════════════════════════════╗"+Colors.RESET);
-                        System.out.println(Colors.PINK_TRUE_COLOR+"║      Thank you for using our program   ║"+Colors.RESET);
-                        System.out.println(Colors.PINK_TRUE_COLOR+"║                   (><)                 ║"+Colors.RESET);
-                        System.out.println(Colors.PINK_TRUE_COLOR+"╚════════════════════════════════════════╝"+Colors.RESET);
+                    
+                        String exitChoice = "";
+                        while (!exitChoice.equalsIgnoreCase("yes") && !exitChoice.equalsIgnoreCase("no")) {
+                            System.out.print(Colors.YELLOW + "Are you sure you want to exit? (yes/no): " + Colors.RESET);
+                            exitChoice = scanner.next().trim().toLowerCase();
 
-                        System.exit(0);
+                            if (exitChoice.equals("yes")) {
+                                menu.thank();
+                                System.out.println(Colors.PINK_TRUE_COLOR + "╔════════════════════════════════════════╗" + Colors.RESET);
+                                System.out.println(Colors.PINK_TRUE_COLOR + "║      Thank you for using our program   ║" + Colors.RESET);
+                                System.out.println(Colors.PINK_TRUE_COLOR + "║                   (><)                 ║" + Colors.RESET);
+                                System.out.println(Colors.PINK_TRUE_COLOR + "╚════════════════════════════════════════╝" + Colors.RESET);
+                                System.exit(0); 
+                            } else if (exitChoice.equals("no")) {
+                                clear();
+                                choice = -1; 
+                                break; 
+                            } else {
+                                System.out.println(Colors.RED + "Invalid input! Please enter 'yes' or 'no'." + Colors.RESET);
+                            }
+                        }
+                        break;
+                    
                     default:
                         System.out.println(Colors.GREEN+"Please Choice Correct Option!"+Colors.RESET);
                         break;
