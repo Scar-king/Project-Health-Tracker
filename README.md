@@ -1,6 +1,15 @@
 # <p align="center">Welcome to Health Tracking Application</p>
 ![image](https://github.com/user-attachments/assets/f84c65a4-4195-45c6-9fee-0ed54cd5dac7)
 
+# 📋 Table of Contents
+
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Techology Used](#technology-used)
+- [Setup & Installation](#setup-&-installation)
+
 
 # 📌 Overview
 
@@ -66,24 +75,25 @@ Health_Tracker/
 
 # 🛠️ Setup & Installation
 
-## Prerequisites
+## 1. Prerequisites
 
 - Java 17 or later
 - MySQL ( DataBase )
 - VsCode
 
-## Clone the Repository
+## 2. Clone the Repository
 
 ```
 git clone https://github.com/yourusername/health-tracker.git
 cd health-tracker
 ```
 
-## Set Up the Database
+## 3. Set Up the Database
 
-1. Go to MySQL and Import "DataBase.sql" to your workbench
-2. Find this code below in each features( BMI, StepTracker, WaterTracker, StepTracker, HeartTracker ):
-   ```
+3.1. Go to MySQL and Import "DataBase.sql" to your workbench
+3.2. Find this code below in each features( BMI, StepTracker, WaterTracker, StepTracker, HeartTracker ):
+   
+```
    private void connectionToDatabase() {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
@@ -94,4 +104,14 @@ cd health-tracker
 ```
 
 
-  Change your user name and your password according to your  your workbench 
+  **Change your user name and your password according to your  your workbench**
+
+## 4. Run the Program
+
+Compile and execute the main Java file:
+```
+javac src/Main.java
+
+java src.Main
+```
+
