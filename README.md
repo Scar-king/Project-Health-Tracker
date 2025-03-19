@@ -9,6 +9,7 @@
 - [Project Structure](#project-structure)
 - [Techology Used](#technology-used)
 - [Setup & Installation](#setup-&-installation)
+- [Systems Requirement](#systems-requirement)
 
 
 # 📌 Overview
@@ -115,3 +116,11 @@ javac src/Main.java
 java src.Main
 ```
 
+# 💻 Systems Requirement
+
+- **OS:** Windows 10 / macOS 10.15 / Linux
+- **CPU:** Intel Core i3 (or equivalent)
+- **RAM:** 4GB
+- **Storage:** 500MB of free disk space
+- **Java Version:** Java 17 or higher
+- **Database:** MySQL 8.0+
