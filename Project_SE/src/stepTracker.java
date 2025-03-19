@@ -18,10 +18,7 @@ public class stepTracker extends Client {
 
     private void connectionToDatabase(){
         try {
-            String url = "jdbc:mysql://localhost:3306/health_tracker";
-            String username = "root";
-            String password = System.getenv("PASSWORD");
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
         } catch (SQLException e) {
             System.out.println("Database connection error: " + e.getMessage());
         }
@@ -30,17 +27,17 @@ public class stepTracker extends Client {
     public void saveDataToDatabase() {
         String query = "INSERT INTO step_data (Name, Age, Gender, Steps_Count, Step_Goal, Weight, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, name);
-            stmt.setInt(2, age);
-            stmt.setString(3, gender);
-            stmt.setInt(4, stepCount);
-            stmt.setInt(5, stepGoal);
-            stmt.setDouble(6, weight);
-            stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(2, age);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(3, gender);
+            preparedStatement.setInt(4, stepCount);
+            preparedStatement.setInt(5, stepGoal);
+            preparedStatement.setDouble(6, weight);
+            preparedStatement.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
             System.out.println(Colors.GREEN+"Step Tracker data saved to database successfully!"+Colors.RESET);
-            stmt.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(Colors.RED+"Error saving data: "+Colors.RESET + e.getMessage());
         }

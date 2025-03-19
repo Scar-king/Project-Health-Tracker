@@ -78,19 +78,19 @@ public class HeartTracker extends Client {
         String query = "INSERT INTO heart_rate_data (Name, Age, Gender, Resting_HR, Max_HR, HRR, Current_HR, Heart_Zone, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement stmt = connection.prepareStatement(query)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
-            stmt.setString(1, name);
-            stmt.setInt(2, age);
-            stmt.setString(3, gender);
-            stmt.setInt(4, restingHR);
-            stmt.setInt(5, maxHR);
-            stmt.setInt(6, hrr);
-            stmt.setInt(7, currentHR);
-            stmt.setString(8, heartZone);
-            stmt.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, age);
+            preparedStatement.setString(3, gender);
+            preparedStatement.setInt(4, restingHR);
+            preparedStatement.setInt(5, maxHR);
+            preparedStatement.setInt(6, hrr);
+            preparedStatement.setInt(7, currentHR);
+            preparedStatement.setString(8, heartZone);
+            preparedStatement.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-            stmt.executeUpdate();
+            preparedStatement.executeUpdate();
             System.out.println(Colors.GREEN + "Heart Data saved successfully!" + Colors.RESET);
         } catch (SQLException e) {
             System.out.println("Error saving Heart Data: " + e.getMessage());  
@@ -112,9 +112,4 @@ public class HeartTracker extends Client {
         System.out.println(" Heart Rate Zone: " + heartZone);
         System.out.println("===============================");
     }
-
-    public int getRestingHR() { return restingHR; }
-    public int getMaxHR() { return maxHR; }
-    public int getHrr() { return hrr; }
-    public int getCurrentHR() { return currentHR; }
 }

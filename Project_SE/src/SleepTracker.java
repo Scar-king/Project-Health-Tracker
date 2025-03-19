@@ -88,19 +88,19 @@ public class SleepTracker extends Client {
         String query = "INSERT INTO sleep_data (Name, Age, Gender, Sleep_Start, Wake_Up_Time, Time_In_Bed, Total_Sleep_Hours, Sleep_Efficiency, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement stmt = connection.prepareStatement(query)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            stmt.setString(1, name);
-            stmt.setInt(2, age);
-            stmt.setString(3, gender);
-            stmt.setTime(4, java.sql.Time.valueOf(this.sleepStart));
-            stmt.setTime(5, java.sql.Time.valueOf(this.wakeUpTime));
-            stmt.setDouble(6, timeInBed);
-            stmt.setDouble(7, totalSleepHours);
-            stmt.setDouble(8, sleepEfficiency);
-            stmt.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, age);
+            preparedStatement.setString(3, gender);
+            preparedStatement.setTime(4, java.sql.Time.valueOf(this.sleepStart));
+            preparedStatement.setTime(5, java.sql.Time.valueOf(this.wakeUpTime));
+            preparedStatement.setDouble(6, timeInBed);
+            preparedStatement.setDouble(7, totalSleepHours);
+            preparedStatement.setDouble(8, sleepEfficiency);
+            preparedStatement.setTimestamp(9, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-            stmt.executeUpdate();
+            preparedStatement.executeUpdate();
             System.out.println(Colors.GREEN+"Sleep Data saved successfully!"+Colors.RESET);
         } catch ( SQLException e) {
             System.out.println(Colors.RED+"Error saving Sleep Data: "+Colors.RESET + e.getMessage());

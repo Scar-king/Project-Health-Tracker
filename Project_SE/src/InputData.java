@@ -135,17 +135,17 @@ public class InputData {
                         bmi.displayResult();
 
                         String query = "INSERT INTO bmi_data (Name, Age, Gender, Weight, Height, BMI, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+                        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                            stmt.setString(1, name);
-                            stmt.setInt(2, age);
-                            stmt.setString(3, gender);
-                            stmt.setDouble(4, weight);
-                            stmt.setDouble(5, height);
-                            stmt.setDouble(6, bmi.calculateBMI());
-                            stmt.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+                            preparedStatement.setString(1, name);
+                            preparedStatement.setInt(2, age);
+                            preparedStatement.setString(3, gender);
+                            preparedStatement.setDouble(4, weight);
+                            preparedStatement.setDouble(5, height);
+                            preparedStatement.setDouble(6, bmi.calculateBMI());
+                            preparedStatement.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-                            stmt.executeUpdate();
+                            preparedStatement.executeUpdate();
                             System.out.println(Colors.GREEN + "BMI data saved to database successfully!" + Colors.RESET);
                         } catch (SQLException e) {
                             System.out.println(Colors.RED + "Error while saving BMI data to database: " + e.getMessage() + Colors.RESET);
@@ -209,20 +209,22 @@ public class InputData {
                     case 3:
                         clear();
                         menu.water();
-                        double goal;
-                        do {
-                            System.out.print("Enter your daily water intake goal (in liters): ");
-                            if (scanner.hasNextDouble()) {
+                        double goal = -1;
+                        boolean validGoal = false;
+                        while(!validGoal) {
+                            try {
+                                System.out.print("Enter your daily water intake goal (in liters): ");
                                 goal = scanner.nextDouble();
-                                if (goal <= 0) {
-                                    System.out.println(Colors.RED + "Water intake goal must be a positive number and greater than 0! Please try again." + Colors.RESET);
+                                if(goal >= 0 && goal <= 5){
+                                    validGoal = true;
+                                } else {
+                                    System.out.println(Colors.RED + "Oops! Water intake goal must be a positive number greater than 0 and less than 5L. Please try again." + Colors.RESET);
                                 }
-                            } else {
+                            } catch (Exception e) {
                                 System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake goal." + Colors.RESET);
-                                scanner.next();
-                                goal = -1;
+                                scanner.nextLine();
                             }
-                        } while (goal <= 0);
+                        }
 
                         WaterTracker waterTracker = new WaterTracker(goal, name, age, gender);
                         String userChoice = "yes";
@@ -230,26 +232,28 @@ public class InputData {
                         while (userChoice.equalsIgnoreCase("yes") && waterTracker.getIntakeProgress() < 100) {
 
                             double waterAmount = -1;
-                            while (waterAmount <= 0) {
-                                System.out.print("\nEnter the amount of water you drank (in liters): ");
-                                if (scanner.hasNextDouble()) {
+                            boolean validWaterAmount = false;
+                            while(!validWaterAmount) {
+                                try {
+                                    System.out.print("\nEnter the amount of water you drank (in liters): ");
                                     waterAmount = scanner.nextDouble();
-                                    if (waterAmount <= 0) {
-                                        System.out.println(Colors.RED + "Water intake must be a positive value! Please try again." + Colors.RESET);
+                                    if(waterAmount >= 0 && waterAmount <= 5){
+                                        validWaterAmount = true;
+                                    } else {
+                                        System.out.println(Colors.RED + "Oops! Water intake must be a positive number greater than 0 and less than 5L. Please try again." + Colors.RESET);
                                     }
-                                } else {
-                                    System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake." + Colors.RESET);
-                                    scanner.next();
-                                    waterAmount = -1;
+                                } catch (Exception e) {
+                                    System.out.println(Colors.RED + "Oops! That doesn't look like a valid number. Please enter a positive number for the water intake goal." + Colors.RESET);
+                                    scanner.nextLine();
                                 }
-                            }
-                            if (waterAmount <= 0) {
-                                System.out.println(Colors.RED + "Please enter a positive value for water intake!" + Colors.RED);
                             }
 
                             waterTracker.logWaterIntake(waterAmount);
                             waterTracker.displayResult();
                             System.out.println("Intake Progress: " + waterTracker.getIntakeProgress() + "%");
+                            if (waterTracker.getIntakeProgress() == 100) {
+                                System.out.println(Colors.BRIGHT_GREEN + "\nCongratulations! You've reached your water intake goal for the day!" + Colors.RESET);
+                            }
 
                             if (waterTracker.getIntakeProgress() < 100) {
                                 System.out.print("\nDo you want to log more water intake? (yes/no): ");
