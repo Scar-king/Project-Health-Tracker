@@ -26,20 +26,21 @@ The **Health Tracker Application** is a Java-based console application designed 
 
 - Suggests hydration goals based on user profile.
 
-## 4. Heart Rate, Calories, Sleep, and Blood Metrics
+## 4. Heart Rate, and Blood Metrics
 
-- Collects data on heart rate, calories burned, sleep duration, blood pressure, and blood sugar levels.
+- Collects data on heart rate, resting heart rate
 
 - Displays a health report with recommendations.
 
 ## 5. Sleep Tracker
 
-- Tracks resting heart rate.
+- Tracks resting .
 
 - Helps monitor cardiovascular health.
 
 # 📂 Project Structure
 
+```
 Health_Tracker/
 ├── src/
 │   ├── Main.java
@@ -54,6 +55,7 @@ Health_Tracker/
 |   ├── HeartTracker.java
 ├── README.md
 └── .gitignore
+```
 
 # 🌐 Technology Used
 
@@ -62,4 +64,34 @@ Health_Tracker/
 - Visual Studio Code ( IDE )
 - GitHub ( Code Communication )
 
+# 🛠️ Setup & Installation
 
+## Prerequisites
+
+- Java 17 or later
+- MySQL ( DataBase )
+- VsCode
+
+## Clone the Repository
+
+```
+git clone https://github.com/yourusername/health-tracker.git
+cd health-tracker
+```
+
+## Set Up the Database
+
+1. Go to MySQL and Import "DataBase.sql" to your workbench
+2. Find this code below in each features( BMI, StepTracker, WaterTracker, StepTracker, HeartTracker ):
+   ```
+   private void connectionToDatabase() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+        } catch (SQLException e) {
+            System.out.println("Database connection error: " + e.getMessage());
+        }
+    }
+```
+
+
+  Change your user name and your password according to your  your workbench 
