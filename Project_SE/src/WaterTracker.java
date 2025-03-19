@@ -10,6 +10,7 @@ public class WaterTracker extends Client {
     double goalWaterIntake;
     String hydrationLevel;
     List<Double> dailyIntakes;
+    private Connection connection;
 
     public WaterTracker(double goalWaterIntake, String name, int age, String gender){
         super(name, age, gender);
@@ -17,13 +18,20 @@ public class WaterTracker extends Client {
         this.totalWaterIntake = 0.0;
         this.hydrationLevel = "Not tracked yet";
         this.dailyIntakes = new ArrayList<>();
+        connectionToDatabase();
+    }
+
+    private void connectionToDatabase(){
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+        } catch (SQLException e) {
+            System.out.println(Colors.RED + "Database connection error: " + e.getMessage() + Colors.RESET);
+        }
     }
 
     private void saveDataToDatabase(){
         String query = "INSERT INTO water_data (Name, Age, Gender, Total_Water_Intake, Goal_Water_Intake, Hydration_Level, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, age);
             preparedStatement.setString(3, gender);
@@ -32,8 +40,8 @@ public class WaterTracker extends Client {
             preparedStatement.setString(6, hydrationLevel);
             preparedStatement.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-            preparedStatement.executeUpdate();
             System.out.println(Colors.GREEN + "Water Tracker Data saved successfully!" + Colors.RESET);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(Colors.RED + "Error saving water tracker data: " + e.getMessage() + Colors.RESET);
         }
