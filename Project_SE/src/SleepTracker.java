@@ -18,6 +18,7 @@ public class SleepTracker extends Client {
     double totalSleepHours;
     double sleepEfficiency;
     List<SleepSession> sleepHistory;
+    private Connection connection;
     public SleepTracker(String name, int age, String gender){
         super(name, age, gender);
         this.sleepStart = LocalTime.of(0,0);
@@ -28,6 +29,7 @@ public class SleepTracker extends Client {
         this.totalSleepHours = 0.0;
         this.sleepEfficiency = 0.0;
         this.sleepHistory = new ArrayList<>();
+        connectionToDatabase();
     }
 
     public void inputData(){
@@ -84,12 +86,18 @@ public class SleepTracker extends Client {
         return time;
     }
 
+    private void connectionToDatabase() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+        } catch (SQLException e) {
+            System.out.println("Database connection error: " + e.getMessage());
+        }
+    }
+
     private void saveDataToDatabase(){
         String query = "INSERT INTO sleep_data (Name, Age, Gender, Sleep_Start, Wake_Up_Time, Time_In_Bed, Total_Sleep_Hours, Sleep_Efficiency, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, age);
             preparedStatement.setString(3, gender);

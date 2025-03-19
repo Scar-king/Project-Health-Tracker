@@ -11,6 +11,7 @@ public class HeartTracker extends Client {
     private int currentHR;
     private String heartZone;
     private Scanner scanner;
+    private Connection connection;
 
     public HeartTracker(String name, int age, String gender) {
         super(name, age, gender);
@@ -19,7 +20,8 @@ public class HeartTracker extends Client {
         this.hrr = 0;
         this.currentHR = 0;
         this.heartZone = "";
-        this.scanner = new Scanner(System.in);  
+        this.scanner = new Scanner(System.in); 
+        connectionToDatabase(); 
     }
 
     public void process() {
@@ -74,12 +76,18 @@ public class HeartTracker extends Client {
         saveDataToDatabase();
     }
 
+    private void connectionToDatabase() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+        } catch (SQLException e) {
+            System.out.println("Database connection error: " + e.getMessage());
+        }
+    }
+
     private void saveDataToDatabase() {
         String query = "INSERT INTO heart_rate_data (Name, Age, Gender, Resting_HR, Max_HR, HRR, Current_HR, Heart_Zone, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, age);
             preparedStatement.setString(3, gender);

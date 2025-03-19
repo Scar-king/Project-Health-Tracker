@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class InputData {
 
-    public static Connection getConnection() throws SQLException {
+    private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
     }
 
@@ -135,7 +135,8 @@ public class InputData {
                         bmi.displayResult();
 
                         String query = "INSERT INTO bmi_data (Name, Age, Gender, Weight, Height, BMI, Date) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                        try (Connection connection = getConnection(); 
+                            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
                             preparedStatement.setString(1, name);
                             preparedStatement.setInt(2, age);
@@ -145,8 +146,8 @@ public class InputData {
                             preparedStatement.setDouble(6, bmi.calculateBMI());
                             preparedStatement.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
 
-                            preparedStatement.executeUpdate();
                             System.out.println(Colors.GREEN + "BMI data saved to database successfully!" + Colors.RESET);
+                            preparedStatement.executeUpdate();
                         } catch (SQLException e) {
                             System.out.println(Colors.RED + "Error while saving BMI data to database: " + e.getMessage() + Colors.RESET);
                         }
