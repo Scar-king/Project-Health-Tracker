@@ -42,15 +42,24 @@ The **Health Tracker Application** is a Java-based console application designed 
 
 Health_Tracker/
 ├── src/
-│   ├── Main.java              # Entry point of the program
+│   ├── Main.java
 |   ├── Menu.java
-│   ├── Client.java            # Manages user information
-│   ├── BMI.java               # Handles BMI calculations
-│   ├── StepTracker.java       # Manages step tracking
-│   ├── WaterTracker.java      # Tracks water intake
-│   ├── InputBMIData.java      # Handles user input for BMI
-│   ├── Colors.java          # MySQL database connection
+│   ├── Client.java
+│   ├── BMI.java
+│   ├── StepTracker.java
+│   ├── WaterTracker.java
+│   ├── InputData.java
+│   ├── Colors.java
 |   ├── SleepTracker.java
-├── README.md                  # Project documentation
-├── requirements.txt            # List of dependencies
-└── .gitignore                  # Ignored files in Git
+|   ├── HeartTracker.java
+├── README.md
+└── .gitignore
+
+# 🌐 Technology Used
+
+- Java Language
+- MySQL (Database for storing user data)
+- Visual Studio Code ( IDE )
+- GitHub ( Code Communication )
+
+
