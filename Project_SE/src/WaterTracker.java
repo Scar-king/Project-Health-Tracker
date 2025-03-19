@@ -23,7 +23,9 @@ public class WaterTracker extends Client {
 
     private void connectionToDatabase(){
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker",
+                                                    "root", // Replace with your username
+                                                    System.getenv("PASSWORD")); // Replace with your password
         } catch (SQLException e) {
             System.out.println(Colors.RED + "Database connection error: " + e.getMessage() + Colors.RESET);
         }

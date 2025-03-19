@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class InputData {
 
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", "root", System.getenv("PASSWORD"));
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/health_tracker", 
+                                          "root", //Replace with your username
+                                          System.getenv("PASSWORD")); //Replace with your passowrd
     }
 
     public static void clear() {
